@@ -1,4 +1,4 @@
-package com.github.johanneshaberlah;
+package com.github.johanneshaberlah.zcjson;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
@@ -46,6 +46,11 @@ public final class JsonDocument implements AutoCloseable {
     return segment.asSlice(valueStart, valueLength);
   }
 
+  public JsonDocument readObject(String key) {
+    int startIndex = findTokenIndex(JsonKey.of(key));
+    return readObjectAt(startIndex + 1);
+  }
+
   public JsonDocument readObject(JsonKey key) {
     int startIndex = findTokenIndex(key);
     return readObjectAt(startIndex + 1);
@@ -60,6 +65,11 @@ public final class JsonDocument implements AutoCloseable {
       startIndex,
       endIndex
     );
+  }
+
+  public JsonArray readArray(String key) {
+    int startIndex = findTokenIndex(JsonKey.of(key));
+    return readArrayAt(startIndex + 1);
   }
 
   public JsonArray readArray(JsonKey key) {

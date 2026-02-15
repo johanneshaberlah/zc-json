@@ -1,4 +1,4 @@
-package com.github.johanneshaberlah;
+package com.github.johanneshaberlah.zcjson;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;

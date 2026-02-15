@@ -1,4 +1,4 @@
-package com.github.johanneshaberlah;
+package com.github.johanneshaberlah.zcjson;
 
 public final class JsonKeyNotFoundException extends RuntimeException {
 

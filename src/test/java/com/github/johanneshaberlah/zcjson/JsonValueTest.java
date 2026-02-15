@@ -1,4 +1,4 @@
-package com.github.johanneshaberlah;
+package com.github.johanneshaberlah.zcjson;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

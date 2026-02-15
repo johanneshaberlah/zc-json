@@ -1,10 +1,9 @@
-package com.github.johanneshaberlah;
+package com.github.johanneshaberlah.zcjson;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.github.johanneshaberlah.JsonDocumentReaderTest.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Primitive Value Tests")
 class PrimitiveValueTest {

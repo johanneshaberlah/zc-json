@@ -1,4 +1,4 @@
-package com.github.johanneshaberlah;
+package com.github.johanneshaberlah.zcjson;
 
 import java.io.IOException;
 import java.lang.foreign.Arena;
