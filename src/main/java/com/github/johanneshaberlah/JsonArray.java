@@ -28,7 +28,7 @@ public class JsonArray {
 
   public JsonArray readArray(int index) {
     int tokenIndex = findTokenIndex(index);
-    return parent.readArrayAt(tokenIndex + 1);
+    return parent.readArrayAt(tokenIndex);
   }
 
   public int findTokenIndex(int arrayIndex) {

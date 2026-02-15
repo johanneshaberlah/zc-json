@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.nio.charset.StandardCharsets;
 
-public final class JsonDocument {
+public final class JsonDocument implements AutoCloseable {
   final MemorySegment segment;
   final long[] tokens;
 

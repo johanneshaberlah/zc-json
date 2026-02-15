@@ -5,6 +5,12 @@ plugins {
 group = "com.github.johanneshaberlah"
 version = "1.0-SNAPSHOT"
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)
+    }
+}
+
 repositories {
     mavenCentral()
 }
