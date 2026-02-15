@@ -63,8 +63,8 @@ try (JsonDocument document = reader.read(file)) {
     var university = document.readObject("university");
     String universityName = university.readValue("name").asString();
 
-    // Arrays with mixed types
-    int age = document.readValue("age").asString();
+    // Primitives
+    int age = document.readValue("age").asInteger();
     double height = document.readValue("height").asDouble();
 }
 ```
