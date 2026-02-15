@@ -1,6 +1,6 @@
 # zc-json
 
-Blazingly fast zero-copy JSON access for the JVM — no heap allocations, powered by JDK 23's
+Blazingly fast zero-copy JSON access for the JVM - no heap allocations, powered by JDK 23's
 [Project Panama](https://openjdk.org/projects/panama/).
 
 > [!WARNING]
@@ -8,7 +8,7 @@ Blazingly fast zero-copy JSON access for the JVM — no heap allocations, powere
 
 ## Why zc-json
 
-Memory allocations are a major bottleneck in JSON deserialization—especially with sparse access patterns, where you
+Memory allocations are a major bottleneck in JSON deserialization - especially with sparse access patterns, where you
 often read only a small subset of fields. In those cases, only paying for what you actually access can be a huge win.
 
 Most JSON libraries allocate aggressively: Strings, boxed numbers, node/object trees, and intermediate buffers.
