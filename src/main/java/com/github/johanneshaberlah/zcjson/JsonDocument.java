@@ -135,18 +135,6 @@ public final class JsonDocument implements AutoCloseable {
     throw new IllegalStateException("Malformed JSON structure starting at token " + startIndex);
   }
 
-  public void debugTokens() {
-    for (int index = startToken; index < endToken; index++) {
-      long token = tokens[index];
-      int type = (int) (token >>> 60);
-      int length = (int) (token & 0x3FFFFFFFL);
-      int start = (int) ((token >>> 30) & 0x3FFFFFFFL);
-      if (token == -1) return;
-      MemorySegment candidate = segment.asSlice(start, length);
-      System.out.println(index + "# Type: " + Token.toString(type) + " | Length: " + length + " | Value: " + StandardCharsets.UTF_8.decode(candidate.asByteBuffer()).toString());
-    }
-  }
-
   public void close() {
     arena.close();
   }

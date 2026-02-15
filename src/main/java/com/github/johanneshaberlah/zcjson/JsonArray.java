@@ -69,16 +69,4 @@ public class JsonArray {
     length = logicalIndex;
     return logicalIndex;
   }
-
-  public void debugTokens() {
-    for (int index = start; index < end; index++) {
-      long token = parent.tokens[index];
-      int type = (int) (token >>> 60);
-      int length = (int) (token & 0x3FFFFFFFL);
-      int start = (int) ((token >>> 30) & 0x3FFFFFFFL);
-      if (token == -1) return;
-      MemorySegment candidate = parent.segment.asSlice(start, length);
-      System.out.println(index + "# Type: " + Token.toString(type) + " | Length: " + length + " | Value: " + StandardCharsets.UTF_8.decode(candidate.asByteBuffer()).toString());
-    }
-  }
 }
