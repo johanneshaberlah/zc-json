@@ -3,7 +3,8 @@ package com.github.johanneshaberlah.zcjson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.github.johanneshaberlah.JsonDocumentReaderTest.*;
+import static com.github.johanneshaberlah.zcjson.JsonDocumentReaderTest.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("Number Format Tests")
 class NumberFormatTest {
