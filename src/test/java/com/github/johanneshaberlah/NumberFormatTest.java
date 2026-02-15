@@ -19,7 +19,7 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("42", segmentToString(document.readValue(JsonKey.of("count"))));
+            assertEquals("42", segmentToString(document.readValueSegment(JsonKey.of("count"))));
         }
     }
 
@@ -33,7 +33,7 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("0", segmentToString(document.readValue(JsonKey.of("value"))));
+            assertEquals("0", segmentToString(document.readValueSegment(JsonKey.of("value"))));
         }
     }
 
@@ -47,7 +47,7 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("1000000", segmentToString(document.readValue(JsonKey.of("population"))));
+            assertEquals("1000000", segmentToString(document.readValueSegment(JsonKey.of("population"))));
         }
     }
 
@@ -61,7 +61,7 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("-3", segmentToString(document.readValue(JsonKey.of("temperature"))));
+            assertEquals("-3", segmentToString(document.readValueSegment(JsonKey.of("temperature"))));
         }
     }
 
@@ -75,7 +75,7 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("-100000", segmentToString(document.readValue(JsonKey.of("debt"))));
+            assertEquals("-100000", segmentToString(document.readValueSegment(JsonKey.of("debt"))));
         }
     }
 
@@ -89,7 +89,7 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("3.14159", segmentToString(document.readValue(JsonKey.of("pi"))));
+            assertEquals("3.14159", segmentToString(document.readValueSegment(JsonKey.of("pi"))));
         }
     }
 
@@ -103,7 +103,7 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("0.5", segmentToString(document.readValue(JsonKey.of("fraction"))));
+            assertEquals("0.5", segmentToString(document.readValueSegment(JsonKey.of("fraction"))));
         }
     }
 
@@ -117,7 +117,7 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("3e5", segmentToString(document.readValue(JsonKey.of("large"))));
+            assertEquals("3e5", segmentToString(document.readValueSegment(JsonKey.of("large"))));
         }
     }
 
@@ -131,7 +131,7 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("2.5e-3", segmentToString(document.readValue(JsonKey.of("small"))));
+            assertEquals("2.5e-3", segmentToString(document.readValueSegment(JsonKey.of("small"))));
         }
     }
 
@@ -145,7 +145,7 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("1.5E10", segmentToString(document.readValue(JsonKey.of("huge"))));
+            assertEquals("1.5E10", segmentToString(document.readValueSegment(JsonKey.of("huge"))));
         }
     }
 
@@ -159,7 +159,7 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("1e+8", segmentToString(document.readValue(JsonKey.of("value"))));
+            assertEquals("1e+8", segmentToString(document.readValueSegment(JsonKey.of("value"))));
         }
     }
 
@@ -176,10 +176,10 @@ class NumberFormatTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("100", segmentToString(document.readValue(JsonKey.of("int"))));
-            assertEquals("-50", segmentToString(document.readValue(JsonKey.of("negative"))));
-            assertEquals("3.14", segmentToString(document.readValue(JsonKey.of("float"))));
-            assertEquals("1.2e3", segmentToString(document.readValue(JsonKey.of("scientific"))));
+            assertEquals("100", segmentToString(document.readValueSegment(JsonKey.of("int"))));
+            assertEquals("-50", segmentToString(document.readValueSegment(JsonKey.of("negative"))));
+            assertEquals("3.14", segmentToString(document.readValueSegment(JsonKey.of("float"))));
+            assertEquals("1.2e3", segmentToString(document.readValueSegment(JsonKey.of("scientific"))));
         }
     }
 }

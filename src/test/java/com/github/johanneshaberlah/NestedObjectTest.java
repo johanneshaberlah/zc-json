@@ -22,7 +22,7 @@ class NestedObjectTest {
 
         try (JsonDocument document = parseJson(json)) {
             JsonDocument user = document.readObject(JsonKey.of("user"));
-            assertEquals("Alice", segmentToString(user.readValue(JsonKey.of("name"))));
+            assertEquals("Alice", segmentToString(user.readValueSegment(JsonKey.of("name"))));
         }
     }
 
@@ -42,7 +42,7 @@ class NestedObjectTest {
         try (JsonDocument document = parseJson(json)) {
             JsonDocument company = document.readObject(JsonKey.of("company"));
             JsonDocument address = company.readObject(JsonKey.of("address"));
-            assertEquals("Hamburg", segmentToString(address.readValue(JsonKey.of("city"))));
+            assertEquals("Hamburg", segmentToString(address.readValueSegment(JsonKey.of("city"))));
         }
     }
 
@@ -65,7 +65,7 @@ class NestedObjectTest {
             JsonDocument university = document.readObject(JsonKey.of("university"));
             JsonDocument location = university.readObject(JsonKey.of("location"));
             JsonDocument city = location.readObject(JsonKey.of("city"));
-            assertEquals("Berlin", segmentToString(city.readValue(JsonKey.of("name"))));
+            assertEquals("Berlin", segmentToString(city.readValueSegment(JsonKey.of("name"))));
         }
     }
 
@@ -85,10 +85,10 @@ class NestedObjectTest {
 
         try (JsonDocument document = parseJson(json)) {
             JsonDocument person = document.readObject(JsonKey.of("person"));
-            assertEquals("John", segmentToString(person.readValue(JsonKey.of("name"))));
+            assertEquals("John", segmentToString(person.readValueSegment(JsonKey.of("name"))));
 
             JsonDocument address = document.readObject(JsonKey.of("address"));
-            assertEquals("Main St", segmentToString(address.readValue(JsonKey.of("street"))));
+            assertEquals("Main St", segmentToString(address.readValueSegment(JsonKey.of("street"))));
         }
     }
 
@@ -109,11 +109,11 @@ class NestedObjectTest {
 
         try (JsonDocument document = parseJson(json)) {
             JsonDocument user = document.readObject(JsonKey.of("user"));
-            assertEquals("Alice", segmentToString(user.readValue(JsonKey.of("name"))));
-            assertEquals("30", segmentToString(user.readValue(JsonKey.of("age"))));
-            assertEquals("true", segmentToString(user.readValue(JsonKey.of("active"))));
-            assertEquals("98.5", segmentToString(user.readValue(JsonKey.of("score"))));
-            assertEquals("null", segmentToString(user.readValue(JsonKey.of("metadata"))));
+            assertEquals("Alice", segmentToString(user.readValueSegment(JsonKey.of("name"))));
+            assertEquals("30", segmentToString(user.readValueSegment(JsonKey.of("age"))));
+            assertEquals("true", segmentToString(user.readValueSegment(JsonKey.of("active"))));
+            assertEquals("98.5", segmentToString(user.readValueSegment(JsonKey.of("score"))));
+            assertEquals("null", segmentToString(user.readValueSegment(JsonKey.of("metadata"))));
         }
     }
 
@@ -153,15 +153,15 @@ class NestedObjectTest {
 
         try (JsonDocument document = parseJson(json)) {
             JsonDocument org = document.readObject(JsonKey.of("organization"));
-            assertEquals("TechCorp", segmentToString(org.readValue(JsonKey.of("name"))));
-            assertEquals("true", segmentToString(org.readValue(JsonKey.of("active"))));
+            assertEquals("TechCorp", segmentToString(org.readValueSegment(JsonKey.of("name"))));
+            assertEquals("true", segmentToString(org.readValueSegment(JsonKey.of("active"))));
 
             JsonDocument hq = org.readObject(JsonKey.of("headquarters"));
-            assertEquals("Germany", segmentToString(hq.readValue(JsonKey.of("country"))));
+            assertEquals("Germany", segmentToString(hq.readValueSegment(JsonKey.of("country"))));
 
             JsonDocument city = hq.readObject(JsonKey.of("city"));
-            assertEquals("Munich", segmentToString(city.readValue(JsonKey.of("name"))));
-            assertEquals("1500000", segmentToString(city.readValue(JsonKey.of("population"))));
+            assertEquals("Munich", segmentToString(city.readValueSegment(JsonKey.of("name"))));
+            assertEquals("1500000", segmentToString(city.readValueSegment(JsonKey.of("population"))));
         }
     }
 }

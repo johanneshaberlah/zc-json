@@ -26,7 +26,15 @@ public final class JsonDocument implements AutoCloseable {
     this.endToken = endToken;
   }
 
-  public MemorySegment readValue(JsonKey key) {
+  public JsonValue readValue(String key) {
+    return JsonValue.of(readValueSegment(JsonKey.of(key)));
+  }
+
+  public JsonValue readValue(JsonKey key) {
+    return JsonValue.of(readValueSegment(key));
+  }
+
+  public MemorySegment readValueSegment(JsonKey key) {
     int tokenIndex = findTokenIndex(key);
     return readValueAt(tokenIndex + 1);
   }

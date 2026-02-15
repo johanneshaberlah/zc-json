@@ -35,9 +35,9 @@ class ArrayTest {
 
         try (JsonDocument document = parseJson(json)) {
             JsonArray numbers = document.readArray(JsonKey.of("numbers"));
-            assertEquals("10", segmentToString(numbers.readValue(0)));
-            assertEquals("20", segmentToString(numbers.readValue(1)));
-            assertEquals("30", segmentToString(numbers.readValue(2)));
+            assertEquals("10", segmentToString(numbers.readValueSegment(0)));
+            assertEquals("20", segmentToString(numbers.readValueSegment(1)));
+            assertEquals("30", segmentToString(numbers.readValueSegment(2)));
         }
     }
 
@@ -57,10 +57,10 @@ class ArrayTest {
             JsonArray users = document.readArray(JsonKey.of("users"));
 
             JsonDocument user0 = users.readObject(0);
-            assertEquals("Alice", segmentToString(user0.readValue(JsonKey.of("name"))));
+            assertEquals("Alice", segmentToString(user0.readValueSegment(JsonKey.of("name"))));
 
             JsonDocument user1 = users.readObject(1);
-            assertEquals("Bob", segmentToString(user1.readValue(JsonKey.of("name"))));
+            assertEquals("Bob", segmentToString(user1.readValueSegment(JsonKey.of("name"))));
         }
     }
 
@@ -81,15 +81,15 @@ class ArrayTest {
 
             JsonArray row0 = matrix.readArray(0);
             assertEquals(3, row0.length());
-            assertEquals("1", segmentToString(row0.readValue(0)));
-            assertEquals("2", segmentToString(row0.readValue(1)));
-            assertEquals("3", segmentToString(row0.readValue(2)));
+            assertEquals("1", segmentToString(row0.readValueSegment(0)));
+            assertEquals("2", segmentToString(row0.readValueSegment(1)));
+            assertEquals("3", segmentToString(row0.readValueSegment(2)));
 
             JsonArray row1 = matrix.readArray(1);
             assertEquals(3, row1.length());
-            assertEquals("4", segmentToString(row1.readValue(0)));
-            assertEquals("5", segmentToString(row1.readValue(1)));
-            assertEquals("6", segmentToString(row1.readValue(2)));
+            assertEquals("4", segmentToString(row1.readValueSegment(0)));
+            assertEquals("5", segmentToString(row1.readValueSegment(1)));
+            assertEquals("6", segmentToString(row1.readValueSegment(2)));
         }
     }
 
@@ -105,11 +105,11 @@ class ArrayTest {
         try (JsonDocument document = parseJson(json)) {
             JsonArray mixed = document.readArray(JsonKey.of("mixed"));
             assertEquals(5, mixed.length());
-            assertEquals("Hello", segmentToString(mixed.readValue(0)));
-            assertEquals("true", segmentToString(mixed.readValue(1)));
-            assertEquals("null", segmentToString(mixed.readValue(2)));
-            assertEquals("3.12", segmentToString(mixed.readValue(3)));
-            assertEquals("5", segmentToString(mixed.readValue(4)));
+            assertEquals("Hello", segmentToString(mixed.readValueSegment(0)));
+            assertEquals("true", segmentToString(mixed.readValueSegment(1)));
+            assertEquals("null", segmentToString(mixed.readValueSegment(2)));
+            assertEquals("3.12", segmentToString(mixed.readValueSegment(3)));
+            assertEquals("5", segmentToString(mixed.readValueSegment(4)));
         }
     }
 
@@ -140,9 +140,9 @@ class ArrayTest {
         try (JsonDocument document = parseJson(json)) {
             JsonArray colors = document.readArray(JsonKey.of("colors"));
             assertEquals(3, colors.length());
-            assertEquals("red", segmentToString(colors.readValue(0)));
-            assertEquals("green", segmentToString(colors.readValue(1)));
-            assertEquals("blue", segmentToString(colors.readValue(2)));
+            assertEquals("red", segmentToString(colors.readValueSegment(0)));
+            assertEquals("green", segmentToString(colors.readValueSegment(1)));
+            assertEquals("blue", segmentToString(colors.readValueSegment(2)));
         }
     }
 
@@ -157,8 +157,8 @@ class ArrayTest {
 
         try (JsonDocument document = parseJson(json)) {
             JsonArray items = document.readArray(JsonKey.of("items"));
-            assertThrows(ArrayIndexOutOfBoundsException.class, () -> items.readValue(5));
-            assertThrows(ArrayIndexOutOfBoundsException.class, () -> items.readValue(-1));
+            assertThrows(ArrayIndexOutOfBoundsException.class, () -> items.readValueSegment(5));
+            assertThrows(ArrayIndexOutOfBoundsException.class, () -> items.readValueSegment(-1));
         }
     }
 
@@ -192,9 +192,9 @@ class ArrayTest {
         try (JsonDocument document = parseJson(json)) {
             JsonArray flags = document.readArray(JsonKey.of("flags"));
             assertEquals(3, flags.length());
-            assertEquals("true", segmentToString(flags.readValue(0)));
-            assertEquals("false", segmentToString(flags.readValue(1)));
-            assertEquals("true", segmentToString(flags.readValue(2)));
+            assertEquals("true", segmentToString(flags.readValueSegment(0)));
+            assertEquals("false", segmentToString(flags.readValueSegment(1)));
+            assertEquals("true", segmentToString(flags.readValueSegment(2)));
         }
     }
 
@@ -226,17 +226,17 @@ class ArrayTest {
             assertEquals(2, teams.length());
 
             JsonDocument team0 = teams.readObject(0);
-            assertEquals("Team A", segmentToString(team0.readValue(JsonKey.of("name"))));
+            assertEquals("Team A", segmentToString(team0.readValueSegment(JsonKey.of("name"))));
             JsonArray team0Members = team0.readArray(JsonKey.of("members"));
             assertEquals(2, team0Members.length());
-            assertEquals("Alice", segmentToString(team0Members.readObject(0).readValue(JsonKey.of("name"))));
-            assertEquals("Bob", segmentToString(team0Members.readObject(1).readValue(JsonKey.of("name"))));
+            assertEquals("Alice", segmentToString(team0Members.readObject(0).readValueSegment(JsonKey.of("name"))));
+            assertEquals("Bob", segmentToString(team0Members.readObject(1).readValueSegment(JsonKey.of("name"))));
 
             JsonDocument team1 = teams.readObject(1);
-            assertEquals("Team B", segmentToString(team1.readValue(JsonKey.of("name"))));
+            assertEquals("Team B", segmentToString(team1.readValueSegment(JsonKey.of("name"))));
             JsonArray team1Members = team1.readArray(JsonKey.of("members"));
             assertEquals(1, team1Members.length());
-            assertEquals("Charlie", segmentToString(team1Members.readObject(0).readValue(JsonKey.of("name"))));
+            assertEquals("Charlie", segmentToString(team1Members.readObject(0).readValueSegment(JsonKey.of("name"))));
         }
     }
 }

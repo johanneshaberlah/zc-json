@@ -16,7 +16,11 @@ public class JsonArray {
     this.end = end;
   }
 
-  public MemorySegment readValue(int index) {
+  public JsonValue readValue(int index) {
+    return JsonValue.of(readValueSegment(index));
+  }
+
+  public MemorySegment readValueSegment(int index) {
     int tokenIndex = findTokenIndex(index);
     return parent.readValueAt(tokenIndex);
   }

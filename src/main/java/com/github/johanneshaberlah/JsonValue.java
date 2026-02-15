@@ -6,8 +6,8 @@ import java.lang.foreign.ValueLayout;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-// API to enhance dev-experience at the cost of one allocation per call - no string transformation required for
-// number handling.
+// API to enhance dev-experience at the cost of one allocation per call and one allocation for this wrapper - no string
+// transformation required for number handling.
 public class JsonValue {
   private final Charset charset = StandardCharsets.UTF_8;
   private final MemorySegment segment;

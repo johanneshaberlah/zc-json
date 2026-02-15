@@ -19,7 +19,7 @@ class PrimitiveValueTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("Hello, World!", segmentToString(document.readValue(JsonKey.of("message"))));
+            assertEquals("Hello, World!", segmentToString(document.readValueSegment(JsonKey.of("message"))));
         }
     }
 
@@ -33,7 +33,7 @@ class PrimitiveValueTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("", segmentToString(document.readValue(JsonKey.of("empty"))));
+            assertEquals("", segmentToString(document.readValueSegment(JsonKey.of("empty"))));
         }
     }
 
@@ -47,7 +47,7 @@ class PrimitiveValueTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("true", segmentToString(document.readValue(JsonKey.of("active"))));
+            assertEquals("true", segmentToString(document.readValueSegment(JsonKey.of("active"))));
         }
     }
 
@@ -61,7 +61,7 @@ class PrimitiveValueTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("false", segmentToString(document.readValue(JsonKey.of("inactive"))));
+            assertEquals("false", segmentToString(document.readValueSegment(JsonKey.of("inactive"))));
         }
     }
 
@@ -75,7 +75,7 @@ class PrimitiveValueTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("null", segmentToString(document.readValue(JsonKey.of("optional"))));
+            assertEquals("null", segmentToString(document.readValueSegment(JsonKey.of("optional"))));
         }
     }
 
@@ -93,11 +93,11 @@ class PrimitiveValueTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("Alice", segmentToString(document.readValue(JsonKey.of("name"))));
-            assertEquals("true", segmentToString(document.readValue(JsonKey.of("active"))));
-            assertEquals("25", segmentToString(document.readValue(JsonKey.of("age"))));
-            assertEquals("98.5", segmentToString(document.readValue(JsonKey.of("score"))));
-            assertEquals("null", segmentToString(document.readValue(JsonKey.of("metadata"))));
+            assertEquals("Alice", segmentToString(document.readValueSegment(JsonKey.of("name"))));
+            assertEquals("true", segmentToString(document.readValueSegment(JsonKey.of("active"))));
+            assertEquals("25", segmentToString(document.readValueSegment(JsonKey.of("age"))));
+            assertEquals("98.5", segmentToString(document.readValueSegment(JsonKey.of("score"))));
+            assertEquals("null", segmentToString(document.readValueSegment(JsonKey.of("metadata"))));
         }
     }
 
@@ -112,8 +112,8 @@ class PrimitiveValueTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("/home/user/file.txt", segmentToString(document.readValue(JsonKey.of("path"))));
-            assertEquals("user@example.com", segmentToString(document.readValue(JsonKey.of("email"))));
+            assertEquals("/home/user/file.txt", segmentToString(document.readValueSegment(JsonKey.of("path"))));
+            assertEquals("user@example.com", segmentToString(document.readValueSegment(JsonKey.of("email"))));
         }
     }
 }

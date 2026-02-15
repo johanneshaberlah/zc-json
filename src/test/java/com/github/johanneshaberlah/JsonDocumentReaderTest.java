@@ -31,7 +31,7 @@ class JsonDocumentReaderTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            MemorySegment value = document.readValue(JsonKey.of("name"));
+            MemorySegment value = document.readValueSegment(JsonKey.of("name"));
             assertEquals("Alice", segmentToString(value));
         }
     }
@@ -48,9 +48,9 @@ class JsonDocumentReaderTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("John", segmentToString(document.readValue(JsonKey.of("firstName"))));
-            assertEquals("Doe", segmentToString(document.readValue(JsonKey.of("lastName"))));
-            assertEquals("30", segmentToString(document.readValue(JsonKey.of("age"))));
+            assertEquals("John", segmentToString(document.readValueSegment(JsonKey.of("firstName"))));
+            assertEquals("Doe", segmentToString(document.readValueSegment(JsonKey.of("lastName"))));
+            assertEquals("30", segmentToString(document.readValueSegment(JsonKey.of("age"))));
         }
     }
 
@@ -65,8 +65,8 @@ class JsonDocumentReaderTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("value1", segmentToString(document.readValue(JsonKey.of("key1"))));
-            assertEquals("value2", segmentToString(document.readValue(JsonKey.of("key2"))));
+            assertEquals("value1", segmentToString(document.readValueSegment(JsonKey.of("key1"))));
+            assertEquals("value2", segmentToString(document.readValueSegment(JsonKey.of("key2"))));
         }
     }
 

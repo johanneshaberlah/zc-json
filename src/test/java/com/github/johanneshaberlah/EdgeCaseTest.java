@@ -15,8 +15,8 @@ class EdgeCaseTest {
         String json = "{\n\t\"name\":\t\"Alice\",\n\t\"age\":\t30\n}";
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("Alice", segmentToString(document.readValue(JsonKey.of("name"))));
-            assertEquals("30", segmentToString(document.readValue(JsonKey.of("age"))));
+            assertEquals("Alice", segmentToString(document.readValueSegment(JsonKey.of("name"))));
+            assertEquals("30", segmentToString(document.readValueSegment(JsonKey.of("age"))));
         }
     }
 
@@ -30,7 +30,7 @@ class EdgeCaseTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("Hello World from JSON", segmentToString(document.readValue(JsonKey.of("message"))));
+            assertEquals("Hello World from JSON", segmentToString(document.readValueSegment(JsonKey.of("message"))));
         }
     }
 
@@ -48,7 +48,7 @@ class EdgeCaseTest {
             """, longString);
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals(longString.toString(), segmentToString(document.readValue(JsonKey.of("long"))));
+            assertEquals(longString.toString(), segmentToString(document.readValueSegment(JsonKey.of("long"))));
         }
     }
 
@@ -67,7 +67,7 @@ class EdgeCaseTest {
 
         try (JsonDocument document = parseJson(jsonBuilder.toString())) {
             for (int i = 0; i < 50; i++) {
-                assertEquals("value" + i, segmentToString(document.readValue(JsonKey.of("key" + i))));
+                assertEquals("value" + i, segmentToString(document.readValueSegment(JsonKey.of("key" + i))));
             }
         }
     }
@@ -78,7 +78,7 @@ class EdgeCaseTest {
         String json = "{\"a\":\"b\"}";
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("b", segmentToString(document.readValue(JsonKey.of("a"))));
+            assertEquals("b", segmentToString(document.readValueSegment(JsonKey.of("a"))));
         }
     }
 
@@ -94,9 +94,9 @@ class EdgeCaseTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("value1", segmentToString(document.readValue(JsonKey.of("field1"))));
-            assertEquals("value2", segmentToString(document.readValue(JsonKey.of("field2"))));
-            assertEquals("value123", segmentToString(document.readValue(JsonKey.of("field123"))));
+            assertEquals("value1", segmentToString(document.readValueSegment(JsonKey.of("field1"))));
+            assertEquals("value2", segmentToString(document.readValueSegment(JsonKey.of("field2"))));
+            assertEquals("value123", segmentToString(document.readValueSegment(JsonKey.of("field123"))));
         }
     }
 
@@ -111,8 +111,8 @@ class EdgeCaseTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("/usr/local/bin/app", segmentToString(document.readValue(JsonKey.of("path"))));
-            assertEquals("https://example.com/api/v1/users?id=123", segmentToString(document.readValue(JsonKey.of("url"))));
+            assertEquals("/usr/local/bin/app", segmentToString(document.readValueSegment(JsonKey.of("path"))));
+            assertEquals("https://example.com/api/v1/users?id=123", segmentToString(document.readValueSegment(JsonKey.of("url"))));
         }
     }
 
@@ -128,9 +128,9 @@ class EdgeCaseTest {
             """;
 
         try (JsonDocument document = parseJson(json)) {
-            assertEquals("", segmentToString(document.readValue(JsonKey.of("empty1"))));
-            assertEquals("", segmentToString(document.readValue(JsonKey.of("empty2"))));
-            assertEquals("value", segmentToString(document.readValue(JsonKey.of("nonEmpty"))));
+            assertEquals("", segmentToString(document.readValueSegment(JsonKey.of("empty1"))));
+            assertEquals("", segmentToString(document.readValueSegment(JsonKey.of("empty2"))));
+            assertEquals("value", segmentToString(document.readValueSegment(JsonKey.of("nonEmpty"))));
         }
     }
 
@@ -167,36 +167,36 @@ class EdgeCaseTest {
 
         try (JsonDocument document = parseJson(json)) {
             // Root level primitives
-            assertEquals("TechCorp", segmentToString(document.readValue(JsonKey.of("name"))));
-            assertEquals("true", segmentToString(document.readValue(JsonKey.of("active"))));
-            assertEquals("1.5e6", segmentToString(document.readValue(JsonKey.of("revenue"))));
-            assertEquals("null", segmentToString(document.readValue(JsonKey.of("metadata"))));
+            assertEquals("TechCorp", segmentToString(document.readValueSegment(JsonKey.of("name"))));
+            assertEquals("true", segmentToString(document.readValueSegment(JsonKey.of("active"))));
+            assertEquals("1.5e6", segmentToString(document.readValueSegment(JsonKey.of("revenue"))));
+            assertEquals("null", segmentToString(document.readValueSegment(JsonKey.of("metadata"))));
 
             // Array with nested objects
             JsonArray employees = document.readArray(JsonKey.of("employees"));
             assertEquals(2, employees.length());
 
             JsonDocument alice = employees.readObject(0);
-            assertEquals("1", segmentToString(alice.readValue(JsonKey.of("id"))));
-            assertEquals("Alice", segmentToString(alice.readValue(JsonKey.of("name"))));
+            assertEquals("1", segmentToString(alice.readValueSegment(JsonKey.of("id"))));
+            assertEquals("Alice", segmentToString(alice.readValueSegment(JsonKey.of("name"))));
             JsonArray aliceRoles = alice.readArray(JsonKey.of("roles"));
             assertEquals(2, aliceRoles.length());
-            assertEquals("developer", segmentToString(aliceRoles.readValue(0)));
-            assertEquals("team-lead", segmentToString(aliceRoles.readValue(1)));
+            assertEquals("developer", segmentToString(aliceRoles.readValueSegment(0)));
+            assertEquals("team-lead", segmentToString(aliceRoles.readValueSegment(1)));
 
             JsonDocument bob = employees.readObject(1);
-            assertEquals("2", segmentToString(bob.readValue(JsonKey.of("id"))));
-            assertEquals("Bob", segmentToString(bob.readValue(JsonKey.of("name"))));
+            assertEquals("2", segmentToString(bob.readValueSegment(JsonKey.of("id"))));
+            assertEquals("Bob", segmentToString(bob.readValueSegment(JsonKey.of("name"))));
             JsonArray bobRoles = bob.readArray(JsonKey.of("roles"));
             assertEquals(1, bobRoles.length());
-            assertEquals("designer", segmentToString(bobRoles.readValue(0)));
+            assertEquals("designer", segmentToString(bobRoles.readValueSegment(0)));
 
             // Nested objects (3 levels deep)
             JsonDocument hq = document.readObject(JsonKey.of("headquarters"));
-            assertEquals("Germany", segmentToString(hq.readValue(JsonKey.of("country"))));
+            assertEquals("Germany", segmentToString(hq.readValueSegment(JsonKey.of("country"))));
             JsonDocument city = hq.readObject(JsonKey.of("city"));
-            assertEquals("Berlin", segmentToString(city.readValue(JsonKey.of("name"))));
-            assertEquals("3600000", segmentToString(city.readValue(JsonKey.of("population"))));
+            assertEquals("Berlin", segmentToString(city.readValueSegment(JsonKey.of("name"))));
+            assertEquals("3600000", segmentToString(city.readValueSegment(JsonKey.of("population"))));
         }
     }
 }
