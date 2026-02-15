@@ -77,7 +77,7 @@ Requires **JDK 23+**.
 
 ```kotlin
 dependencies {
-    implementation("com.github.johanneshaberlah:zs-json:0.1")
+    implementation("com.github.johanneshaberlah:zc-json:0.1")
 }
 ```
 
@@ -85,7 +85,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation 'com.github.johanneshaberlah:zs-json:0.1'
+    implementation 'com.github.johanneshaberlah:zc-json:0.1'
 }
 ```
 
@@ -94,7 +94,7 @@ dependencies {
 ```xml
 <dependency>
     <groupId>com.github.johanneshaberlah</groupId>
-    <artifactId>zs-json</artifactId>
+    <artifactId>zc-json</artifactId>
     <version>0.1</version>
 </dependency>
 ```
