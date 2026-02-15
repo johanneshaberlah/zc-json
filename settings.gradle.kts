@@ -1,1 +1,1 @@
-rootProject.name = "zero-copy-json"
+rootProject.name = "zc-json"

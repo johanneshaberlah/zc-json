@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "com.github.johanneshaberlah"
-version = "1.0-SNAPSHOT"
+version = "0.1"
 
 java {
     toolchain {
