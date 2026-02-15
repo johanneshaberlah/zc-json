@@ -1,6 +1,6 @@
 # zc-json
 
-Blazingly fast zero-copy JSON access for the JVM - no heap allocations, powered by JDK 23's
+Blazingly fast zero-copy JSON access for the JVM - powered by JDK 23's
 [Project Panama](https://openjdk.org/projects/panama/).
 
 > [!WARNING]
