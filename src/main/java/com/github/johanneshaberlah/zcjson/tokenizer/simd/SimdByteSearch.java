@@ -7,61 +7,46 @@ import jdk.incubator.vector.VectorSpecies;
 
 import java.lang.foreign.MemorySegment;
 import java.nio.ByteOrder;
+import java.util.function.Function;
 
 public class SimdByteSearch {
   private static final VectorSpecies<Byte> BYTE_SPECIES = ByteVector.SPECIES_PREFERRED;
   private static final ByteOrder NATIVE_ORDER = ByteOrder.nativeOrder();
 
   public long findByte(MemorySegment segment, long from, long length, byte value) {
-    int step = BYTE_SPECIES.length();
-
-    for (long index = from; index < length; index += step) {
-      VectorMask<Byte> indexInRangeMask = BYTE_SPECIES.indexInRange(index, length);
-
-      ByteVector inputVector = ByteVector.fromMemorySegment(BYTE_SPECIES, segment, index, NATIVE_ORDER,
-        indexInRangeMask);
-      VectorMask<Byte> matches = inputVector.compare(VectorOperators.EQ, value);
-      VectorMask<Byte> validMatches = matches.and(indexInRangeMask);
-
-      if (validMatches.anyTrue()) {
-        return index + validMatches.firstTrue();
-      }
-    }
-    return length;
+    return findFirstMatch(segment, from, length, mask -> mask.compare(VectorOperators.EQ, value));
   }
 
-  long findFirstNonNumeric(MemorySegment segment, long from, long length) {
-    int step = BYTE_SPECIES.length();
-
-    for (long index = from; index < length; index += step) {
-      VectorMask<Byte> indexInRangeMask = BYTE_SPECIES.indexInRange(index, length);
-
-      ByteVector inputVector = ByteVector.fromMemorySegment(BYTE_SPECIES, segment, index, NATIVE_ORDER,
-        indexInRangeMask);
-      VectorMask<Byte> nonNumeric = isDigitOrExtra(inputVector)
+  public long findFirstNonNumeric(MemorySegment segment, long from, long length) {
+    return findFirstMatch(segment, from, length, mask ->
+      mask.compare(VectorOperators.GE, '0')
+        .and(mask.compare(VectorOperators.LE, '9'))
+        .or(mask.compare(VectorOperators.EQ, '+'))
+        .or(mask.compare(VectorOperators.EQ, '-'))
+        .or(mask.compare(VectorOperators.EQ, '.'))
+        .or(mask.lanewise(VectorOperators.OR, 0x20).compare(VectorOperators.EQ, 'e')) // ignore case of 'e'
         .not()
-        .and(indexInRangeMask);
-
-      if (nonNumeric.anyTrue()) {
-        return index + nonNumeric.firstTrue();
-      }
-    }
-
-    return length;
+    );
   }
 
-  private static VectorMask<Byte> isDigitOrExtra(ByteVector input) {
-    VectorMask<Byte> digits =
-      input.compare(VectorOperators.GE, '0')
-        .and(input.compare(VectorOperators.LE, '9'));
+  private long findFirstMatch(
+    MemorySegment segment,
+    long from,
+    long length,
+    Function<ByteVector, VectorMask<Byte>> mask
+  ) {
+    int step = BYTE_SPECIES.length();
 
-    VectorMask<Byte> extras =
-      input.compare(VectorOperators.EQ, '+')
-        .or(input.compare(VectorOperators.EQ, '-'))
-        .or(input.compare(VectorOperators.EQ, 'e'))
-        .or(input.compare(VectorOperators.EQ, 'E'))
-        .or(input.compare(VectorOperators.EQ, '.'));
+    for (long index = from; index < length; index += step) {
+      VectorMask<Byte> inRange = BYTE_SPECIES.indexInRange(index, length);
+      ByteVector inputVector = ByteVector.fromMemorySegment(BYTE_SPECIES, segment, index, NATIVE_ORDER, inRange);
 
-    return digits.or(extras);
+      VectorMask<Byte> matches = mask.apply(inputVector).and(inRange);
+
+      if (matches.anyTrue()) {
+        return index + matches.firstTrue();
+      }
+    }
+    return length;
   }
 }
