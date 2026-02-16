@@ -79,6 +79,6 @@ class JsonDocumentReaderTest {
   }
 
   protected static JsonDocument parseJson(String json) {
-    return JsonDocumentReader.defaultTokenizer().read(jsonToSegment(json));
+    return JsonDocumentReader.simdTokenizer().read(jsonToSegment(json));
   }
 }

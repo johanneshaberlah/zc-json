@@ -1,0 +1,11 @@
+{
+  "name": "Hannes",
+  "ready": true,
+  "hobbies": [ "Hello", true, null, 3.12, 5, -3, 3e5, [1, 2, 3], {"name":  "lol", "age": 13}],
+  "university": {
+    "name": "IU",
+    "city": {
+      "name": 23.3333e42
+    }
+  }
+}

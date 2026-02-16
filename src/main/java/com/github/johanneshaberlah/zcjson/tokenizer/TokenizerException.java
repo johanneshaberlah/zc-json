@@ -1,4 +1,4 @@
-package com.github.johanneshaberlah.zcjson;
+package com.github.johanneshaberlah.zcjson.tokenizer;
 
 public final class TokenizerException extends RuntimeException {
 

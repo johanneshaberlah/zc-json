@@ -24,3 +24,11 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+  tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs.addAll(listOf("--add-modules", "jdk.incubator.vector"))
+  }
+
+tasks.withType<Test>().configureEach {
+  jvmArgs("--add-modules", "jdk.incubator.vector")
+}

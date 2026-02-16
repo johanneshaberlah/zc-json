@@ -1,5 +1,9 @@
 package com.github.johanneshaberlah.zcjson;
 
+import com.github.johanneshaberlah.zcjson.tokenizer.simd.SimdTokenizer;
+import com.github.johanneshaberlah.zcjson.tokenizer.SequentialTokenizer;
+import com.github.johanneshaberlah.zcjson.tokenizer.Tokenizer;
+
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
@@ -43,7 +47,11 @@ public final class JsonDocumentReader {
     return new JsonDocumentReader(tokenizer);
   }
 
-  public static JsonDocumentReader defaultTokenizer() {
-    return new JsonDocumentReader(new Tokenizer());
+  public static JsonDocumentReader sequentialTokenizer() {
+    return new JsonDocumentReader(new SequentialTokenizer());
+  }
+
+  public static JsonDocumentReader simdTokenizer() {
+    return new JsonDocumentReader(new SimdTokenizer());
   }
 }

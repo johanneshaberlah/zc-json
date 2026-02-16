@@ -21,9 +21,18 @@ public class JsonValue {
 
   private static final MemorySegment TRUE_BYTES = Arena.global().allocateFrom("true", StandardCharsets.UTF_8);
   private static final MemorySegment FALSE_BYTES = Arena.global().allocateFrom("false", StandardCharsets.UTF_8);
+  private static final MemorySegment NULL_BYTES = Arena.global().allocateFrom("null", StandardCharsets.UTF_8);
 
   private JsonValue(MemorySegment segment) {
     this.segment = segment;
+  }
+
+  public boolean isNull() {
+    return segment.mismatch(NULL_BYTES) == -1;
+  }
+
+  public boolean nonNull() {
+    return !isNull();
   }
 
   public String asString() {
@@ -31,13 +40,7 @@ public class JsonValue {
   }
 
   public boolean asBoolean() {
-    if (segment.mismatch(TRUE_BYTES) == -1) {
-      return true;
-    }
-    if (segment.mismatch(FALSE_BYTES) == -1) {
-      return false;
-    }
-    throw new IllegalArgumentException("Not a boolean: " + asString());
+    return Boolean.parseBoolean(asString());
   }
 
   public long asLong() {

@@ -1,7 +1,8 @@
 package com.github.johanneshaberlah.zcjson;
 
+import com.github.johanneshaberlah.zcjson.tokenizer.Token;
+
 import java.lang.foreign.MemorySegment;
-import java.nio.charset.StandardCharsets;
 
 public class JsonArray {
   private final JsonDocument parent;

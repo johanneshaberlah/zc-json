@@ -1,11 +1,11 @@
-package com.github.johanneshaberlah.zcjson;
+package com.github.johanneshaberlah.zcjson.tokenizer;
 
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-public final class Tokenizer {
+public final class SequentialTokenizer implements Tokenizer {
   private static final byte OBJECT_START = '{';
   private static final byte OBJECT_END = '}';
   private static final byte ARRAY_START = '[';
@@ -25,7 +25,7 @@ public final class Tokenizer {
   private long[] tokens = new long[1024];
   private int tokenCount = 0;
 
-  public Tokenizer() {
+  public SequentialTokenizer() {
     for (char c : "0123456789+-eE.".toCharArray()) {
       IS_NUMERIC[c] = true;
     }

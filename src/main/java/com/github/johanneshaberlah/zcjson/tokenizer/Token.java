@@ -1,4 +1,4 @@
-package com.github.johanneshaberlah.zcjson;
+package com.github.johanneshaberlah.zcjson.tokenizer;
 
 public final class Token {
   public static final int OBJECT_START_MARKER = 0;
